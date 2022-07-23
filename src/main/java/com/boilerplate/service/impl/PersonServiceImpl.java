@@ -4,14 +4,12 @@ import com.boilerplate.domain.Person;
 import com.boilerplate.service.PersonService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PersonServiceImpl implements PersonService
 {
-    private static final List<Person> persons = new ArrayList<>() {{
+    private static final Set<Person> persons = new HashSet<>() {{
         add(new Person(1L, "Jon", "Smith", 51));
         add(new Person(2L, "Ömer", "Demirtaş", 41));
         add(new Person(3L, "Emir", "Demirtaş", 31));
@@ -28,5 +26,11 @@ public class PersonServiceImpl implements PersonService
         }
         return person.get();
 
+    }
+
+    @Override
+    public Set<Person> getAll()
+    {
+        return persons;
     }
 }
