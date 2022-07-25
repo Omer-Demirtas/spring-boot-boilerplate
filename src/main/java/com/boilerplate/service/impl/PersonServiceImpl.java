@@ -4,6 +4,7 @@ import com.boilerplate.domain.Person;
 import com.boilerplate.service.PersonService;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.*;
 
 @Service
@@ -37,6 +38,8 @@ public class PersonServiceImpl implements PersonService
     @Override
     public Person create(Person person)
     {
+        if (person.getFirstName() == null) throw new EntityNotFoundException(person.getLastName());
+
         persons.add(person);
         person.setId(persons.stream().toList().get(persons.size() -1).getId() + 1);
         return person;
