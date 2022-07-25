@@ -33,4 +33,12 @@ public class PersonServiceImpl implements PersonService
     {
         return persons;
     }
+
+    @Override
+    public Person create(Person person)
+    {
+        persons.add(person);
+        person.setId(persons.stream().toList().get(persons.size() -1).getId() + 1);
+        return person;
+    }
 }
