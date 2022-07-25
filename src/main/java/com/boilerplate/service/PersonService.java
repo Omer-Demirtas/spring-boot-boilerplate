@@ -9,4 +9,6 @@ public interface PersonService
     Person getPersonById(Long id) throws Exception;
 
     Set<Person> getAll();
+
+    Person create(Person person);
 }
