@@ -1,7 +1,7 @@
 package com.boilerplate.dto;
 
-import com.boilerplate.domain.Person;
 import lombok.*;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
@@ -12,14 +12,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ApiResponse
 {
+    private Object data;
     private String code;
     private String message;
-    private Object data;
+    private HttpStatus status;
     private LocalDateTime time;
-
 
     public static ApiResponse success(Object data)
     {
-        return ApiResponse.builder().data(data).build();
+        return ApiResponse.builder().data(data).status(HttpStatus.CREATED).build();
+    }
+
+    public ApiResponse(HttpStatus status, String message)
+    {
+        this.status = status;
+        this.message = message;
     }
 }
