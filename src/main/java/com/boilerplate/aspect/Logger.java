@@ -18,19 +18,22 @@ public class Logger
     @Pointcut("@annotation(com.boilerplate.annotation.LogMethod)")
     public void logMethod() {}
 
-    @Before("(logClass() || logMethod())")
+    @Pointcut("@annotation(com.boilerplate.annotation.NotLogMethod)")
+    public void notLogMethod() {}
+
+    @Before("(logClass() || logMethod()) && !notLogMethod()")
     public void adviceBefore(JoinPoint jp)
     {
         log.info(jp.toShortString() + Arrays.toString(jp.getArgs()) + " start...");
     }
 
-    @After("(logClass() || logMethod())")
+    @After("(logClass() || logMethod()) && !notLogMethod()")
     public void adviceAfter(JoinPoint jp)
     {
         log.info(jp.toShortString() + Arrays.toString(jp.getArgs()) + " end...");
     }
 
-    @AfterThrowing("(logClass() || logMethod())")
+    @AfterThrowing("(logClass() || logMethod()) && !notLogMethod()")
     public void adviceAfterThrowing(JoinPoint jp)
     {
         log.info(jp.toShortString() + Arrays.toString(jp.getArgs()) + " error throw...");
