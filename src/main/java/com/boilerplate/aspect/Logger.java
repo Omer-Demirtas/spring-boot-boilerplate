@@ -12,22 +12,25 @@ import java.util.Arrays;
 @Component
 public class Logger
 {
-    @Pointcut("@within(com.boilerplate.annotation.Log)")
-    public void log() {}
+    @Pointcut("@within(com.boilerplate.annotation.LogClass)")
+    public void logClass() {}
 
-    @Before("log()")
+    @Pointcut("@annotation(com.boilerplate.annotation.LogMethod)")
+    public void logMethod() {}
+
+    @Before("(logClass() || logMethod())")
     public void adviceBefore(JoinPoint jp)
     {
         log.info(jp.toShortString() + Arrays.toString(jp.getArgs()) + " start...");
     }
 
-    @After("log()")
+    @After("(logClass() || logMethod())")
     public void adviceAfter(JoinPoint jp)
     {
         log.info(jp.toShortString() + Arrays.toString(jp.getArgs()) + " end...");
     }
 
-    @AfterThrowing("log()")
+    @AfterThrowing("(logClass() || logMethod())")
     public void adviceAfterThrowing(JoinPoint jp)
     {
         log.info(jp.toShortString() + Arrays.toString(jp.getArgs()) + " error throw...");
