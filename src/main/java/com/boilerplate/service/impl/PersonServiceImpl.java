@@ -2,11 +2,14 @@ package com.boilerplate.service.impl;
 
 import com.boilerplate.domain.Person;
 import com.boilerplate.service.PersonService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.*;
 
+@Log4j2
 @Service
 public class PersonServiceImpl implements PersonService
 {
@@ -18,7 +21,10 @@ public class PersonServiceImpl implements PersonService
     }};
 
     @Override
-    public Person getPersonById(Long id) throws Exception {
+    public Person getPersonById(Long id) throws Exception
+    {
+        log.info("Method started at {}", LocalDateTime.now());
+
         Optional<Person> person = persons.stream().filter(p -> p.getId().equals(id)).findAny();
 
         if (person.isEmpty())
