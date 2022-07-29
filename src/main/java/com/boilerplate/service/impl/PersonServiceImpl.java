@@ -1,5 +1,7 @@
 package com.boilerplate.service.impl;
 
+import com.boilerplate.annotation.LogClass;
+import com.boilerplate.annotation.LogMethod;
 import com.boilerplate.domain.Person;
 import com.boilerplate.service.PersonService;
 import lombok.extern.log4j.Log4j2;
@@ -20,6 +22,7 @@ public class PersonServiceImpl implements PersonService
         add(new Person(4L, "Halil", "Demirtaş", 21));
     }};
 
+    @LogMethod
     @Override
     public Person getPersonById(Long id) throws Exception
     {
@@ -29,10 +32,10 @@ public class PersonServiceImpl implements PersonService
 
         if (person.isEmpty())
         {
-            throw new Exception("Not Found");
+            throw new EntityNotFoundException("asd");
         }
-        return person.get();
 
+        return person.get();
     }
 
     @Override
