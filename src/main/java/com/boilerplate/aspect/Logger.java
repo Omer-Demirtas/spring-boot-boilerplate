@@ -36,6 +36,6 @@ public class Logger
     @AfterThrowing(value = "(logClass() || logMethod()) && !notLogMethod()", throwing = "ex")
     public void adviceAfterThrowing(JoinPoint jp, Exception ex)
     {
-        log.info("{}{} | {}{}", jp.toShortString(), Arrays.toString(jp.getArgs()), ex.getClass().getName(), ex.getMessage());
+        log.info("{}{} | {} {}", jp.toShortString(), Arrays.toString(jp.getArgs()), ex.getClass().getName(), ex.getMessage());
     }
 }
