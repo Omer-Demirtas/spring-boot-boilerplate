@@ -26,13 +26,11 @@ public class PersonServiceImpl implements PersonService
     @Override
     public Person getPersonById(Long id) throws Exception
     {
-        log.info("Method started at {}", LocalDateTime.now());
-
         Optional<Person> person = persons.stream().filter(p -> p.getId().equals(id)).findAny();
 
         if (person.isEmpty())
         {
-            throw new EntityNotFoundException("asd");
+            throw new EntityNotFoundException(id.toString());
         }
 
         return person.get();
