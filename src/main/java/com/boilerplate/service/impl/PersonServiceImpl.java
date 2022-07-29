@@ -1,6 +1,9 @@
 package com.boilerplate.service.impl;
 
+import com.boilerplate.annotation.LogClass;
+import com.boilerplate.annotation.LogMethod;
 import com.boilerplate.domain.Person;
+import com.boilerplate.exception.EntityNotValidException;
 import com.boilerplate.service.PersonService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -20,19 +23,20 @@ public class PersonServiceImpl implements PersonService
         add(new Person(4L, "Halil", "Demirtaş", 21));
     }};
 
+    @LogMethod
     @Override
-    public Person getPersonById(Long id) throws Exception
+    public Person getPersonById(Long id)
     {
-        log.info("Method started at {}", LocalDateTime.now());
+        if(id == 2) throw new EntityNotValidException(id.toString());
 
         Optional<Person> person = persons.stream().filter(p -> p.getId().equals(id)).findAny();
 
         if (person.isEmpty())
         {
-            throw new Exception("Not Found");
+            throw new EntityNotFoundException(id.toString());
         }
-        return person.get();
 
+        return person.get();
     }
 
     @Override

@@ -33,9 +33,9 @@ public class Logger
         log.info(jp.toShortString() + Arrays.toString(jp.getArgs()) + " end...");
     }
 
-    @AfterThrowing("(logClass() || logMethod()) && !notLogMethod()")
-    public void adviceAfterThrowing(JoinPoint jp)
+    @AfterThrowing(value = "(logClass() || logMethod()) && !notLogMethod()", throwing = "ex")
+    public void adviceAfterThrowing(JoinPoint jp, Exception ex)
     {
-        log.info(jp.toShortString() + Arrays.toString(jp.getArgs()) + " error throw...");
+        log.info("{}{} | {} {}", jp.toShortString(), Arrays.toString(jp.getArgs()), ex.getClass().getName(), ex.getMessage());
     }
 }
