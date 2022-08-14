@@ -1,7 +1,6 @@
 package com.boilerplate.service.impl;
 
-import com.boilerplate.annotation.LogClass;
-import com.boilerplate.annotation.LogMethod;
+import com.boilerplate.annotation.LogThrowClass;
 import com.boilerplate.domain.Person;
 import com.boilerplate.exception.EntityNotValidException;
 import com.boilerplate.service.PersonService;
@@ -9,11 +8,11 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Log4j2
 @Service
+@LogThrowClass
 public class PersonServiceImpl implements PersonService
 {
     private static final Set<Person> persons = new HashSet<>() {{
@@ -23,7 +22,6 @@ public class PersonServiceImpl implements PersonService
         add(new Person(4L, "Halil", "Demirtaş", 21));
     }};
 
-    @LogMethod
     @Override
     public Person getPersonById(Long id)
     {
