@@ -4,12 +4,8 @@ import com.boilerplate.domain.Person;
 import com.boilerplate.dto.ApiResponse;
 import com.boilerplate.service.PersonService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,6 +13,7 @@ import java.util.Set;
 public class PersonController
 {
     private final PersonService personService;
+
     @GetMapping("/all")
     public ApiResponse getAll()
     {
@@ -30,7 +27,6 @@ public class PersonController
             ApiResponse.success(personService.getPersonById(id))
         );
     }
-
 
     @PostMapping()
     public ResponseEntity<ApiResponse> create(@RequestBody Person person)
