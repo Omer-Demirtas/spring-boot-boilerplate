@@ -14,6 +14,18 @@ public class PersonController
 {
     private final PersonService personService;
 
+    @GetMapping("/hello")
+    public ApiResponse helloWorld()
+    {
+        return ApiResponse.success("Hello, World");
+    }
+
+    @GetMapping("/dashboard")
+    public ApiResponse dashboard()
+    {
+        return ApiResponse.success("Dashboard");
+    }
+
     @GetMapping("/all")
     public ApiResponse getAll()
     {
