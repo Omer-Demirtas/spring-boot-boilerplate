@@ -1,8 +1,8 @@
 package com.boilerplate.controller;
 
-import com.boilerplate.domain.Person;
+import com.boilerplate.domain.User;
 import com.boilerplate.dto.ApiResponse;
-import com.boilerplate.service.PersonService;
+import com.boilerplate.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,29 +10,29 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/person")
-public class PersonController
+public class UserController
 {
-    private final PersonService personService;
+    private final UserService userService;
 
     @GetMapping("/all")
     public ApiResponse getAll()
     {
-        return ApiResponse.success(personService.getAll());
+        return ApiResponse.success(userService.getAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse> get(@PathVariable("id") Long id) throws Exception
     {
         return ResponseEntity.ok(
-            ApiResponse.success(personService.getPersonById(id))
+            ApiResponse.success(userService.getPersonById(id))
         );
     }
 
     @PostMapping()
-    public ResponseEntity<ApiResponse> create(@RequestBody Person person)
+    public ResponseEntity<ApiResponse> create(@RequestBody User user)
     {
         return ResponseEntity.ok(
-                ApiResponse.success(personService.create(person))
+                ApiResponse.success(userService.create(user))
         );
     }
 }

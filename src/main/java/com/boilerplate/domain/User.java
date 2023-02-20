@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "T_PERSON")
-public class Person
+public class User
 {
     @Id
     @Column(name = "ID")
