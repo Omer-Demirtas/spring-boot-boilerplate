@@ -5,15 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "T_BOOK_COMMENT")
 public class BookComment
 {
+    @Id
     private Long id;
     private String title;
     private String content;
