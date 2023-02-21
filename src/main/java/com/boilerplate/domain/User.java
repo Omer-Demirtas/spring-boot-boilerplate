@@ -26,6 +26,12 @@ public class User
     @Column(name = "LAST_NAME")
     private String lastName;
 
+    @Column(name = "USERNAME")
+    private String userName;
+
+    @Column(name = "PASSWORD")
+    private String password;
+
     @Column(name = "AGE")
     private int age;
 }
