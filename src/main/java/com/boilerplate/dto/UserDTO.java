@@ -1,5 +1,6 @@
 package com.boilerplate.dto;
 
+import com.boilerplate.domain.Authority;
 import lombok.Data;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public class UserDTO
     String password;
 
     List<BookDTO> books;
+    List<Authority> authorities;
 }

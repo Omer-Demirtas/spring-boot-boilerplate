@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,4 +36,11 @@ public class User
 
     @Column(name = "AGE")
     private int age;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "USER_AUTHORITY",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "ID")
+    )
+    private List<Authority> authorities;
 }
