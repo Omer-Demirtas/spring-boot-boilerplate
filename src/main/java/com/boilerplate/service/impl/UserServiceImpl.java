@@ -7,8 +7,9 @@ import com.boilerplate.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 @Log4j2
 @Service
@@ -29,9 +30,8 @@ public class UserServiceImpl implements UserService
 
         Optional<User> person = USERS.stream().filter(p -> p.getId().equals(id)).findAny();
 
-        if (person.isEmpty())
-        {
-            throw new EntityNotFoundException(id.toString());
+        if (person.isEmpty()) {
+            throw new RuntimeException(id.toString());
         }
 
         return person.get();
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService
     @Override
     public User create(User user)
     {
-        if (user.getFirstName() == null) throw new EntityNotFoundException(user.getLastName());
+        if (user.getFirstName() == null) throw new RuntimeException(user.getLastName());
 
         USERS.add(user);
         user.setId(USERS.stream().toList().get(USERS.size() -1).getId() + 1);

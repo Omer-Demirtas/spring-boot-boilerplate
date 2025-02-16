@@ -1,7 +1,6 @@
 package com.boilerplate.dto;
 
 import com.boilerplate.domain.Book;
-import com.boilerplate.domain.BookComment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

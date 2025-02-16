@@ -1,11 +1,9 @@
 package com.boilerplate.service.impl;
 
 import com.boilerplate.domain.Book;
-import com.boilerplate.dto.BookDTO;
 import com.boilerplate.repository.BookRepository;
 import com.boilerplate.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
