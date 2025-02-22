@@ -1,54 +1,32 @@
 package com.boilerplate.config;
 
-import com.boilerplate.dto.ApiResponse;
-import com.boilerplate.exception.EntityNotValidException;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+import com.boilerplate.exception.BaseException;
+import com.boilerplate.utils.GenericResponse;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.persistence.EntityNotFoundException;
+/**
+ * Global exception handler for handling custom exceptions across the application.
+ * <p>
+ * This class captures all exceptions that extend {@link BaseException} and provides
+ * a unified response format using {@link GenericResponse}. It ensures consistent error
+ * handling and logging.
+ * </p>
+ *
+ * @author Omer Demirtas
+ */
+@Log4j2
+@RestControllerAdvice
+public class RestExceptionHandler {
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+    @ExceptionHandler(BaseException.class)
+    public ResponseEntity<GenericResponse<?>> handleBaseException(BaseException ex) {
+        log.error(ex);
 
-@Order(Ordered.HIGHEST_PRECEDENCE)
-@ControllerAdvice
-public class RestExceptionHandler extends ResponseEntityExceptionHandler
-{
-
-    @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,HttpHeaders headers, HttpStatus status, WebRequest request)
-    {
-        String error = "Malformed JSON request";
-        return new ResponseEntity<>(
-            new ApiResponse(HttpStatus.BAD_REQUEST, error),
-            BAD_REQUEST
-        );
-    }
-
-    @ExceptionHandler(EntityNotFoundException.class)
-    protected ResponseEntity<ApiResponse> handleEntityNotFound(EntityNotFoundException ex)
-    {
-        ApiResponse apiResponse = new ApiResponse(NOT_FOUND, ex.getMessage());
-        return buildResponseEntity(apiResponse);
-    }
-
-    @ExceptionHandler(EntityNotValidException.class)
-    protected ResponseEntity<ApiResponse> handleEntityNotValid(EntityNotValidException ex)
-    {
-        ApiResponse apiResponse = new ApiResponse(BAD_REQUEST, ex.getMessage());
-        return buildResponseEntity(apiResponse);
-    }
-
-    private ResponseEntity<ApiResponse> buildResponseEntity(ApiResponse apiResponse)
-    {
-        return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
+        return ResponseEntity
+                .status(ex.getHttpStatus())
+                .body(ex.toGenericResponse());
     }
 }
